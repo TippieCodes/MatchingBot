@@ -7,6 +7,7 @@ const client = new Discord.Client({ partials: ['MESSAGE', 'CHANNEL', 'REACTION']
 const config = require("./config.json");
 client.config = config;
 
+
 const cooldowns = new Discord.Collection()
 
 fs.readdir("./events/", (err, files) => {
@@ -30,6 +31,7 @@ fs.readdir("./commands/", (err, files) => {
         client.commands.set(commandName, props);
     });
 });
+
 
 client.login(config.token).catch(e => console.log(e));
 

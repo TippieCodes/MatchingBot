@@ -2,7 +2,7 @@ let {conn} = require("./database.js");
 const Discord = require("discord.js")
 const config = require("./config.json")
 const storage = require('node-sessionstorage')
-
+const fs = require('fs')
 function fetchMessageByIds(message_id, channel_id, client) {
     return new Promise(function (resolve, reject) {
         let message_channel = client.channels.cache.get(channel_id);

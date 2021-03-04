@@ -1,6 +1,7 @@
-let {conn, redis} = require("./database.js");
+let {conn} = require("./database.js");
 const Discord = require("discord.js")
 const config = require("./config.json")
+const storage = require('node-sessionstorage')
 
 function fetchMessageByIds(message_id, channel_id, client) {
     return new Promise(function (resolve, reject) {
@@ -168,6 +169,13 @@ module.exports = {
             });
         });
     },
+
+    /**
+     *
+     * @param {Discord#Message} message
+     * @param {number} profile_id
+     * @returns {Promise<string>}
+     */
     loginProfile: function loginProfile(message, profile_id) {
         return new Promise(function(resolve, reject) {
         conn.query(`SELECT * from profiles WHERE profile_id = '${profile_id}'`)
@@ -175,7 +183,7 @@ module.exports = {
                 let userResult = JSON.parse(JSON.stringify(result));
                 userResult.forEach(async function (obj) {
                     if (`${obj.profile_owner}` === `${message.author.id}`) {
-                        redis.set(message.author.id, profile_id)
+                        storage.setItem(message.author.id, profile_id)
                         resolve(obj.name)
                     } else {
                         reject();
@@ -186,7 +194,7 @@ module.exports = {
     },
     removeProfile: function removeProfile(message, profile_id, client) {
         return new Promise(function(resolve, reject) {
-            redis.del(message.author.id)
+            storage.setItem(message.author.id)
             conn.query(`SELECT * FROM matches WHERE profile1 = '${profile_id}' or profile2 = '${profile_id}'`)
                 .then(result => {
                     let userResult = JSON.parse(JSON.stringify(result));

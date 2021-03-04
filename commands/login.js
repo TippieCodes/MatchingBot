@@ -1,13 +1,11 @@
-const {conn, redis} = require("../database");
+const {conn} = require("../database");
 const {postProfile, loginProfile} = require("../utils");
-
+const Command = require("./type/Command");
 String.prototype.isNumber = function() {
     return /^\d+$/.test(this);
 };
 
-module.exports = {
-    name: 'login',
-    description: 'Login to your profile!',
+class loginCommand extends Command {
     execute(client, message, args) {
         let names = []
         let ids = []
@@ -48,5 +46,7 @@ module.exports = {
                     }
                 });
             });
-    },
-};
+    }
+}
+
+module.exports = new loginCommand('login', 'Login to your profile!');

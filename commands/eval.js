@@ -1,5 +1,5 @@
 const {clean, postProfile, fetchMessageByIds, loginProfile, checkMatches, newMatch} = require("../utils");
-const {conn, redis} = require("../database")
+const {conn} = require("../database")
 module.exports = {
     name: 'eval',
     description: 'Debug Command',

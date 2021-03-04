@@ -1,5 +1,6 @@
-const {conn, redis} = require("../database")
+const {conn} = require("../database")
 const {postProfile, loginProfile} = require("../utils")
+const Command = require('./type/Command')
 const questions = [
     "`OOC` What is your IGN?",
     "What is your name?",
@@ -95,9 +96,8 @@ function createProfile(client, message, args){
     });
 }
 
-module.exports = {
-    name: 'create',
-    description: 'Create your profile.',
+class CreateCommand extends Command {
+
     execute(client, message, args) {
         createProfile(client, message, args).then(id => {
             postProfile(client, message, id);
@@ -106,4 +106,6 @@ module.exports = {
             message.reply(`Failed to create your profile.\n\`${e}\``)
         });
     }
-};
+}
+
+module.exports = new CreateCommand('create', 'Create your profile!');

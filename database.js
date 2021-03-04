@@ -1,7 +1,5 @@
 const mysql = require("mysql");
 const config = require("./config.json");
-const redismain = require("redis")
-const redis = redismain.createClient()
 
 class Database {
     constructor( config ) {
@@ -33,10 +31,6 @@ const conn = new Database({
     database: config.mysql_database
 });
 
-redis.on("error", function(error) {
-    console.error(error);
-});
-
 module.exports = {
-    conn, redis
+    conn
 }

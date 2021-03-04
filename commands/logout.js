@@ -1,9 +1,12 @@
-const {redis} = require(`../database`)
-module.exports = {
-    name: 'logout.js',
-    description: 'Logout of your profile.',
+const storage = require('node-sessionstorage')
+const Command = require('./type/Command')
+
+class LogoutCommand extends Command {
+
     execute(client, message, args) {
-        redis.del(message.author.id)
+        storage.set(message.author.id)
         message.channel.send(`Sucessfully logged out!`)
-    },
-};
+    }
+}
+
+module.exports = new LogoutCommand('logout', 'Logout of your profile.');

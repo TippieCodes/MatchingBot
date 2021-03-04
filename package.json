@@ -1,0 +1,13 @@
+{
+  "name": "KarakuraDatingBot",
+  "version": "1.0.0",
+  "dependencies": {
+    "discord.js": "^12.2.0",
+    "forever": "^3.0.4",
+    "mysql": "^2.18.1",
+    "redis": "^3.0.2"
+  },
+  "devDependencies": {
+    "enmap": "^5.2.4"
+  }
+}
